@@ -113,9 +113,12 @@ a:hover {
 .game-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    max-width: 300px;
+    gap: 5px;
+    max-width: 280px;
     margin: 0 auto;
+    background-color: #2a0d3a;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .book {
@@ -133,13 +136,13 @@ a:hover {
 }
 
 .book img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
 }
 
 .book:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 #score {

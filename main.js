@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const elements = ['fire', 'water', 'earth', 'air'];
     let selectedBook = null;
 
-    function createBook() {
+    function createBook(element = null) {
         const book = document.createElement('div');
         book.className = 'book';
-        const element = elements[Math.floor(Math.random() * elements.length)];
+        element = element || elements[Math.floor(Math.random() * elements.length)];
         book.innerHTML = `<img src="assets/images/${element}_book.png" alt="${element} book">`;
         book.dataset.element = element;
         book.addEventListener('click', () => selectBook(book));
@@ -76,11 +76,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function replaceBooks(...books) {
         books.forEach(book => {
-            const element = elements[Math.floor(Math.random() * elements.length)];
-            book.innerHTML = `<img src="assets/images/${element}_book.png" alt="${element} book">`;
-            book.dataset.element = element;
+            book.dataset.element = 'empty';
+            book.innerHTML = '';
             book.style.opacity = '0';
-            setTimeout(() => book.style.opacity = '1', 200);
         });
     }
 
@@ -88,35 +86,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const books = document.querySelectorAll('.book');
         let dropped = false;
 
-        for (let i = 12; i < 16; i++) {
-            for (let j = i; j >= 4; j -= 4) {
-                if (books[j].dataset.element === 'empty') {
-                    books[j].innerHTML = books[j-4].innerHTML;
-                    books[j].dataset.element = books[j-4].dataset.element;
-                    books[j-4].innerHTML = '';
-                    books[j-4].dataset.element = 'empty';
+        for (let col = 0; col < 4; col++) {
+            let emptySpaces = 0;
+            for (let row = 3; row >= 0; row--) {
+                const index = row * 4 + col;
+                if (books[index].dataset.element === 'empty') {
+                    emptySpaces++;
+                } else if (emptySpaces > 0) {
+                    const newIndex = (row + emptySpaces) * 4 + col;
+                    books[newIndex].innerHTML = books[index].innerHTML;
+                    books[newIndex].dataset.element = books[index].dataset.element;
+                    books[index].innerHTML = '';
+                    books[index].dataset.element = 'empty';
                     dropped = true;
                 }
+            }
+            // Fill top empty spaces with new books
+            for (let i = 0; i < emptySpaces; i++) {
+                const index = i * 4 + col;
+                const newBook = createBook();
+                books[index].innerHTML = newBook.innerHTML;
+                books[index].dataset.element = newBook.dataset.element;
             }
         }
 
         if (dropped) {
-            setTimeout(dropBooks, 300);
-        } else {
-            fillEmptySpaces();
-            checkForMatches();
+            setTimeout(checkForMatches, 300);
         }
-    }
-
-    function fillEmptySpaces() {
-        const books = document.querySelectorAll('.book');
-        books.forEach(book => {
-            if (book.dataset.element === 'empty') {
-                const element = elements[Math.floor(Math.random() * elements.length)];
-                book.innerHTML = `<img src="assets/images/${element}_book.png" alt="${element} book">`;
-                book.dataset.element = element;
-            }
-        });
     }
 
     function updateScore() {
