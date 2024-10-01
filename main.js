@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let score = 0;
     const elements = ['fire', 'water', 'earth', 'air'];
     let selectedBook = null;
+    const GRID_SIZE = 3;
 
     function createBook(element = null) {
         const book = document.createElement('div');
@@ -39,9 +40,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         book2.innerHTML = tempHTML;
         book2.dataset.element = tempElement;
 
-        score += 10;
-        updateScore();
-
         checkForMatches();
     }
 
@@ -50,7 +48,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let matched = false;
 
         // Check horizontal matches
-        for (let i = 0; i < 16; i += 4) {
+        for (let i = 0; i < GRID_SIZE * GRID_SIZE; i += GRID_SIZE) {
             if (books[i].dataset.element === books[i+1].dataset.element && 
                 books[i].dataset.element === books[i+2].dataset.element) {
                 matched = true;
@@ -59,16 +57,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         // Check vertical matches
-        for (let i = 0; i < 4; i++) {
-            if (books[i].dataset.element === books[i+4].dataset.element && 
-                books[i].dataset.element === books[i+8].dataset.element) {
+        for (let i = 0; i < GRID_SIZE; i++) {
+            if (books[i].dataset.element === books[i+GRID_SIZE].dataset.element && 
+                books[i].dataset.element === books[i+GRID_SIZE*2].dataset.element) {
                 matched = true;
-                replaceBooks(books[i], books[i+4], books[i+8]);
+                replaceBooks(books[i], books[i+GRID_SIZE], books[i+GRID_SIZE*2]);
             }
         }
 
         if (matched) {
-            score += 50;
+            score += 1;
             updateScore();
             setTimeout(() => {
                 dropBooks();
@@ -89,14 +87,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const books = document.querySelectorAll('.book');
         let dropped = false;
 
-        for (let col = 0; col < 4; col++) {
+        for (let col = 0; col < GRID_SIZE; col++) {
             let emptySpaces = 0;
-            for (let row = 3; row >= 0; row--) {
-                const index = row * 4 + col;
+            for (let row = GRID_SIZE - 1; row >= 0; row--) {
+                const index = row * GRID_SIZE + col;
                 if (books[index].dataset.element === 'empty') {
                     emptySpaces++;
                 } else if (emptySpaces > 0) {
-                    const newIndex = (row + emptySpaces) * 4 + col;
+                    const newIndex = (row + emptySpaces) * GRID_SIZE + col;
                     books[newIndex].innerHTML = books[index].innerHTML;
                     books[newIndex].dataset.element = books[index].dataset.element;
                     books[index].innerHTML = '';
@@ -107,9 +105,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         // Fill empty spaces at the top with new books
-        for (let col = 0; col < 4; col++) {
-            for (let row = 0; row < 4; row++) {
-                const index = row * 4 + col;
+        for (let col = 0; col < GRID_SIZE; col++) {
+            for (let row = 0; row < GRID_SIZE; row++) {
+                const index = row * GRID_SIZE + col;
                 if (books[index].dataset.element === 'empty') {
                     const newBook = createBook();
                     books[index].innerHTML = newBook.innerHTML;
@@ -136,7 +134,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     // Initialize game board
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
         gameBoard.appendChild(createBook());
     }
 
