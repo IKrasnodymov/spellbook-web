@@ -70,7 +70,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (matched) {
             score += 50;
             updateScore();
-            setTimeout(dropBooks, 300);
+            setTimeout(() => {
+                dropBooks();
+                setTimeout(checkForMatches, 300);
+            }, 300);
         }
     }
 
@@ -101,18 +104,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     dropped = true;
                 }
             }
-            // Fill top empty spaces with new books
-            for (let i = 0; i < emptySpaces; i++) {
-                const index = i * 4 + col;
-                const newBook = createBook();
-                books[index].innerHTML = newBook.innerHTML;
-                books[index].dataset.element = newBook.dataset.element;
+        }
+
+        // Fill empty spaces at the top with new books
+        for (let col = 0; col < 4; col++) {
+            for (let row = 0; row < 4; row++) {
+                const index = row * 4 + col;
+                if (books[index].dataset.element === 'empty') {
+                    const newBook = createBook();
+                    books[index].innerHTML = newBook.innerHTML;
+                    books[index].dataset.element = newBook.dataset.element;
+                    books[index].style.opacity = '1';
+                    animateBookFall(books[index], row);
+                }
             }
         }
 
-        if (dropped) {
-            setTimeout(checkForMatches, 300);
-        }
+        return dropped;
+    }
+
+    function animateBookFall(book, row) {
+        book.style.transform = `translateY(-${(row + 1) * 100}%)`;
+        setTimeout(() => {
+            book.style.transition = 'transform 0.3s ease-in';
+            book.style.transform = 'translateY(0)';
+        }, 50);
     }
 
     function updateScore() {
