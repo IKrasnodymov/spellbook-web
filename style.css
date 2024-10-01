@@ -1,0 +1,144 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #f0e6ff;
+    background-color: #1a0d2c;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: #9b4dca;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px #9b4dca;
+}
+
+.github-link {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.github-link a {
+    background-color: #4a0e78;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.app-description {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.app-screenshots {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.app-screenshots img {
+    width: 30%;
+    border-radius: 10px;
+}
+
+.features {
+    margin-bottom: 2rem;
+}
+
+.features h2 {
+    color: #9b4dca;
+}
+
+.features ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.features li::before {
+    content: "✨";
+    color: #9b4dca;
+    margin-right: 0.5rem;
+}
+
+.app-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.store-link {
+    display: inline-block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.store-link:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+.store-badge {
+    height: 50px;
+    width: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+a {
+    color: #9b4dca;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.app-demo {
+    margin: 2rem 0;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.book {
+    width: 60px;
+    height: 80px;
+    background-color: #4a0e78;
+    border: 2px solid #9b4dca;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.book:hover {
+    transform: scale(1.1);
+}
+
+#score {
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 20px;
+    color: #9b4dca;
+}

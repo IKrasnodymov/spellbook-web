@@ -4,96 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spellbook Puzzle</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a0d2c;
-            color: #f0e6ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #9b4dca;
-        }
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .book {
-            width: 60px;
-            height: 80px;
-            background-color: #4a0e78;
-            border: 2px solid #9b4dca;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .book:hover {
-            transform: scale(1.1);
-        }
-        #score {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .links a {
-            color: #9b4dca;
-            text-decoration: none;
-            margin: 0 10px;
-            font-size: 1.2em;
-        }
-        .links a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/images/favicon.ico">
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Spellbook Puzzle</h1>
-        <div class="game-board" id="gameBoard"></div>
-        <div id="score">Score: 0</div>
-        <div class="links">
-            <a href="https://github.com/yourusername/spellbook-puzzle" target="_blank">GitHub</a>
-            <a href="https://play.google.com/store/apps/details?id=com.spellbookpuzzle.app" target="_blank">Google Play</a>
-            <a href="https://apps.apple.com/app/spellbook-puzzle/id0000000000" target="_blank">App Store</a>
+        <p>A magical match-3 puzzle game</p>
+    </header>
+    <main>
+        <div class="github-link">
+            <a href="https://github.com/yourusername/spellbook-puzzle" target="_blank">View on GitHub</a>
         </div>
-    </div>
-    <script>
-        const gameBoard = document.getElementById('gameBoard');
-        const scoreElement = document.getElementById('score');
-        let score = 0;
-        const elements = ['🔥', '💧', '🌍', '💨'];
+        <section class="app-description">
+            <p>Harness the power of elemental spells in this enchanting puzzle game</p>
+        </section>
+        <section class="app-screenshots">
+            <img src="assets/images/1.png" alt="Spellbook Puzzle Screenshot 1">
+            <img src="assets/images/2.png" alt="Spellbook Puzzle Screenshot 2">
+            <img src="assets/images/3.png" alt="Spellbook Puzzle Screenshot 3">
+        </section>
+        
+        <section class="app-demo">
+            <div class="game-board">
+                <!-- Game board will be populated by JavaScript -->
+            </div>
+            <div id="score">Score: 0</div>
+        </section>
 
-        function createBook() {
-            const book = document.createElement('div');
-            book.className = 'book';
-            book.textContent = elements[Math.floor(Math.random() * elements.length)];
-            book.addEventListener('click', () => {
-                score += 10;
-                scoreElement.textContent = `Score: ${score}`;
-                book.textContent = elements[Math.floor(Math.random() * elements.length)];
-            });
-            return book;
-        }
-
-        for (let i = 0; i < 16; i++) {
-            gameBoard.appendChild(createBook());
-        }
-    </script>
+        <section class="features">
+            <h2>Features</h2>
+            <ul>
+                <li>Match-3 gameplay with magical elements</li>
+                <li>Unique spellcasting mechanics</li>
+                <li>Beautiful, enchanting graphics</li>
+                <li>Challenging puzzles and levels</li>
+            </ul>
+        </section>
+        <section class="app-links">
+            <a href="https://apps.apple.com/app/spellbook-puzzle/id0000000000" target="_blank" class="store-link">
+                <img src="assets/images/as.png" alt="Download on the App Store" class="store-badge">
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.spellbookpuzzle.app" target="_blank" class="store-link">
+                <img src="assets/images/gp.png" alt="Get it on Google Play" class="store-badge">
+            </a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Your Company Name. All rights reserved.</p>
+    </footer>
+    <script src="main.js"></script>
 </body>
 </html>
