@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spellbook Puzzle</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a0d2c;
+            color: #f0e6ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #9b4dca;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .book {
+            width: 60px;
+            height: 80px;
+            background-color: #4a0e78;
+            border: 2px solid #9b4dca;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .book:hover {
+            transform: scale(1.1);
+        }
+        #score {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .links a {
+            color: #9b4dca;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+        }
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spellbook Puzzle</h1>
+        <div class="game-board" id="gameBoard"></div>
+        <div id="score">Score: 0</div>
+        <div class="links">
+            <a href="https://github.com/yourusername/spellbook-puzzle" target="_blank">GitHub</a>
+            <a href="https://play.google.com/store/apps/details?id=com.spellbookpuzzle.app" target="_blank">Google Play</a>
+            <a href="https://apps.apple.com/app/spellbook-puzzle/id0000000000" target="_blank">App Store</a>
+        </div>
+    </div>
+    <script>
+        const gameBoard = document.getElementById('gameBoard');
+        const scoreElement = document.getElementById('score');
+        let score = 0;
+        const elements = ['🔥', '💧', '🌍', '💨'];
+
+        function createBook() {
+            const book = document.createElement('div');
+            book.className = 'book';
+            book.textContent = elements[Math.floor(Math.random() * elements.length)];
+            book.addEventListener('click', () => {
+                score += 10;
+                scoreElement.textContent = `Score: ${score}`;
+                book.textContent = elements[Math.floor(Math.random() * elements.length)];
+            });
+            return book;
+        }
+
+        for (let i = 0; i < 16; i++) {
+            gameBoard.appendChild(createBook());
+        }
+    </script>
+</body>
+</html>
